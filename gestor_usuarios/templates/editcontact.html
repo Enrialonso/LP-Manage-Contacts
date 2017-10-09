@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block titel %} Contact Manager - Edit Contact!{% endblock %}
+{% block content %}
+<div class="container-fluid">
+  <div class="jumbotron">
+    <h1>Contacts edit!</h1>
+    <form method="post" action="/editdone/">
+      <div class="container-fluid">
+        <div class="col-sm-6">
+          {% csrf_token %}
+          <span> <strong>{{ form.associated_user.label }}: </strong> {{ form.associated_user }} </span>
+          <span> <strong>{{ form.name.label }}: </strong> {{ form.name }} </span>
+          <span> <strong>{{ form.last.label }}: </strong> {{ form.last }} </span>
+          <span> <strong>{{ form.email.label }}: </strong> {{ form.email }} </span>
+          <span> <strong>{{ form.phone_local.label }}: </strong> {{ form.phone_local }} </span>
+          <span> <strong>{{ form.phone_mov.label }}: </strong> {{ form.phone_mov }} </span>
+          <span> <strong>{{ form.url_web.label }}: </strong> {{ form.url_web }} </span>
+          <input type="hidden" name='id' value='{{ id }}' />
+          <hr>
+        </div>
+        <div class="col-sm-6">
+          <span> <strong>Search Address: </strong> </span>
+          <div id="locationField">
+            <input class="form-control" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text"></input>
+          </div>
+          <span> <strong>{{ form.street.label }}: </strong> {{ form.street }} </span>
+          <span> <strong>{{ form.street_number.label }}: </strong> {{ form.street_number }} </span>
+          <span> <strong>{{ form.population.label }}: </strong> {{ form.population }} </span>
+          <span> <strong>{{ form.state.label }}: </strong> {{ form.state }} </span>
+          <span> <strong>{{ form.postalcode.label }}: </strong> {{ form.postalcode }} </span>
+          <span> <strong>{{ form.country.label }}: </strong> {{ form.country }} </span>
+          <br>
+          <button class="btn btn-primary btn-lg pull-right" type="submit"><span class="glyphicon glyphicon-plus"></span> Edit Contact! </button>
+          <a href="/menu/" class="btn btn-danger btn-lg pull-right" role="button"><span class="glyphicon glyphicon-ban-circle"></span> Cancel! </a>
+          <br>
+          <hr>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>{% block titel %}  {% endblock %}</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">Contacts Manager!</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                {% if session.usuario %}
+                <li><a href="/menu/">Contacts!</a></li>
+                <li><a href="/addcontact/">Add Contact!</a></li>
+                {% endif %}
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                {% if session.usuario %}
+                <li><a href="/menu/"><span class="glyphicon glyphicon-menu-hamburger"></span> {{ session.usuario }} </a></li>
+                <li><a href="/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout!</a></li>
+                {% else %}
+                <li><a href="/signup/"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+    <div class="container-fluid">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8" style="height: 100%">
+        {% block content %}
+        {% endblock %}
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+    <div class="container-fluid">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <div class="navbar navbar-default navbar-fixed-bottom">
+          <div class="container">
+            <p class="navbar-text pull-left">Powered by
+              <img src="https://artandlogic.com/wp-content/uploads/2015/05/1432062111617_logo_django.png" class="img-rounded" alt="Cinque Terre" width="80" height="70">
+              <img src="http://www.camintejs.com/img/dbicons/mariadb.png" class="img-rounded" alt="Cinque Terre" width="60" height="60">
+              <img src="http://pythonhow.com/wp-content/uploads/2016/01/python-logo-python-how.png" class="img-rounded" alt="Cinque Terre" width="40" height="40">
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </body>
+</html>

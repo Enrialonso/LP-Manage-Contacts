@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block titel %} Contact Manager - Login!{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <div>
+      <div class="container-fluid">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+          <h1>Login Form:</h1>
+          <p></p>
+          <form method="post" action="/login/">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary btn-lg" type="submit"> login! </button>
+          </form>
+        </div>
+        <div class="col-sm-3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

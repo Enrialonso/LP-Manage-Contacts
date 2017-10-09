@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+   <div class="jumbotron">
+      <h1>Contact Manager!</h1>
+      <hr>
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#searchcolapse">Search!</button>
+      <div id="searchcolapse" class="collapse">
+         <hr>
+         <ul class="nav nav-pills">
+            <li class="active"><a data-toggle="pill" href="#home">Search by Name</a></li>
+            <li><a data-toggle="pill" href="#menu1">Search by Email</a></li>
+            <li><a data-toggle="pill" href="#menu2">Search by Postal Code</a></li>
+            <li><a data-toggle="pill" href="#menu3">Search by State</a></li>
+            <li><a data-toggle="pill" href="#menu4">Search by Country</a></li>
+         </ul>
+         <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+               <h3>Search by Name</h3>
+               <form method="POST" class="form-inline" action="/">
+                  <div class="form-group">
+                     <label for="name">Name:</label>
+                     <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
+                  </div>
+                  <button type="submit" class="btn btn-default">Search!</button>
+               </form>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+               <h3>Search by Email</h3>
+               <form class="form-inline" action="/">
+                  <div class="form-group">
+                     <label for="email">Email:</label>
+                     <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                  </div>
+                  <button type="submit" class="btn btn-default">Search!</button>
+               </form>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+               <h3>Search by Postal Code</h3>
+               <form class="form-inline" action="/">
+                  <div class="form-group">
+                     <label for="postalcode">Postal code:</label>
+                     <input type="text" class="form-control" id="postalcode" placeholder="Enter Postal Code" name="postalcode">
+                  </div>
+                  <button type="submit" class="btn btn-default">Search!</button>
+               </form>
+            </div>
+            <div id="menu3" class="tab-pane fade">
+               <h3>Search by State</h3>
+               <form class="form-inline" action="/">
+                  <div class="form-group">
+                     <label for="state">State:</label>
+                     <input type="text" class="form-control" id="state" placeholder="Enter State" name="state">
+                  </div>
+                  <button type="submit" class="btn btn-default">Search!</button>
+               </form>
+            </div>
+            <div id="menu4" class="tab-pane fade">
+               <h3>Search by Country</h3>
+               <form class="form-inline" action="/">
+                  <div class="form-group">
+                     <label for="country">Country:</label>
+                     <input type="text" class="form-control" id="country" placeholder="Enter Country" name="country">
+                  </div>
+                  <button type="submit" class="btn btn-default">Search!</button>
+               </form>
+            </div>
+         </div>
+      </div>
+      <hr>
+      {% if contacts|length > 0 %}
+      {% for one_contact in contacts %}
+      <div class="container-fluid">
+         <div class="panel-group">
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4 class="panel-title clearfix">
+                     <div class="row">
+                        <div class="col-sm-6">
+                           <strong>Name:</strong> {{ one_contact.name }} {{ one_contact.last }}<br><br>
+                           <strong>Phone:</strong> {{ one_contact.phone_mov }}
+                        </div>
+                        <div class="col-sm-6">
+                           <form action="/editcontact/" method="POST">
+                              {% csrf_token %}
+                              <input type="hidden" name="name" value="{{ one_contact.name }}" />
+                              <input type="hidden" name="last" value="{{ one_contact.last }}" />
+                              <input type="hidden" name="email" value="{{ one_contact.email }}" />
+                              <input type="hidden" name="phone_local" value="{{ one_contact.phone_local }}" />
+                              <input type="hidden" name="phone_mov" value="{{ one_contact.phone_mov }}" />
+                              <input type="hidden" name="street" value="{{ one_contact.street }}" />
+                              <input type="hidden" name="street_number" value="{{ one_contact.street_number }}" />
+                              <input type="hidden" name="population" value="{{ one_contact.population }}" />
+                              <input type="hidden" name="state" value="{{ one_contact.state }}" />
+                              <input type="hidden" name="country" value="{{ one_contact.country }}" />
+                              <input type="hidden" name="postalcode" value="{{ one_contact.postalcode }}" />
+                              <input type="hidden" name="url_web" value="{{ one_contact.url_web }}" />
+                              <button type="submit" onclick = "this.form.action = '/deletecontact/'; this.form.submit()" id='delete{{ forloop.counter }}'type="button" class="btn btn-danger pull-right">
+                              <span class="glyphicon glyphicon-trash"></span> Delete</button>
+                              <button type="submit" id='edit{{ forloop.counter }}' class="btn btn-primary pull-right">
+                              <span class="glyphicon glyphicon-erase"></span> Edit</button>
+                              <a data-toggle="collapse" href="#collapse{{ forloop.counter }}" class="btn btn-primary pull-right" role="button">
+                              <span class="glyphicon glyphicon-eye-open"></span> Open!</a>
+                           </form>
+                        </div>
+                     </div>
+                  </h4>
+               </div>
+               <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse">
+                  <div class="panel-body">
+                     <strong>Name: </strong><span id="name{{ forloop.counter }}">{{ one_contact.name }}</span><br>
+                     <strong>Last: </strong><span id="last{{ forloop.counter }}">{{ one_contact.last }}</span><br>
+                     <strong>Email: </strong><span id="email{{ forloop.counter }}">{{ one_contact.email }}</span><br>
+                     <strong>Local Phone: </strong><span id="phone_local{{ forloop.counter }}">{{ one_contact.phone_local }}</span><br>
+                     <strong>Mov. Phone: </strong><span id="{{ forloop.counter }}">{{ one_contact.phone_mov }}</span><br>
+                     <strong>Street: </strong><span id="phone_mov{{ forloop.counter }}">{{ one_contact.street }}</span><br>
+                     <strong>Street number: </strong><span id="street_number{{ forloop.counter }}">{{ one_contact.street_number }}</span><br>
+                     <strong>Population: </strong><span id="population{{ forloop.counter }}">{{ one_contact.population }}</span><br>
+                     <strong>State: </strong><span id="state{{ forloop.counter }}">{{ one_contact.state }}</span><br>
+                     <strong>Country: </strong><span id="country{{ forloop.counter }}">{{ one_contact.country }}</span><br>
+                     <strong>Postal code: </strong><span id="postalcode{{ forloop.counter }}">{{ one_contact.postalcode }}</span><br>
+                     <strong>Web or Blog: </strong><span id="url_web{{ forloop.counter }}">{{ one_contact.url_web }}</span><br>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="panel panel-primary">
+         <div class="panel-heading">
+            <h3>Upsss! Contacts list empty!</h3>
+         </div>
+      </div>
+      {% endif %}
+   </div>
+</div>
+{% endblock %}
