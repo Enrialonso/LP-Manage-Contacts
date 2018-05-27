@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'Django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DirectorioDB',
+        'NAME': 'directoriodb',
         'USER': 'admin',
-        'PASSWORD': 1234,
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -124,4 +124,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'))
+STATICFILES_DIRS = [(os.path.join(BASE_DIR, 'static'))]
